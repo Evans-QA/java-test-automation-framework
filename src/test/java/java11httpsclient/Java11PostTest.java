@@ -11,32 +11,22 @@ import java.net.http.HttpResponse;
 import static java.net.http.HttpClient.newBuilder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class Java11PostFails {
+public class Java11PostTest {
 
     private static final String BASE_URL = "https://api.github.com/";
     
     @Test
     void postWithoutAuthorizationFails() throws IOException, InterruptedException {
-
-        // Arrange - create client
-
-        HttpClient httpClient = newBuilder().build();
-
-        // Arrange - create request
-
         HttpRequest post = HttpRequest.newBuilder(URI.create(BASE_URL + "user/repos"))
                 .POST(HttpRequest.BodyPublishers.noBody())
                 .build();
 
-        // Act
-
-        HttpResponse<Void> response = httpClient.send(post, HttpResponse.BodyHandlers.discarding());
-        int actualCode = response.statusCode();
-
-        // Assert
-
-        assertEquals(401, actualCode);
-
+        // The 'try' block ensures the client is closed automatically
+        try (HttpClient httpClient = newBuilder().build()) {
+            HttpResponse<Void> response = httpClient.send(post, HttpResponse.BodyHandlers.discarding());
+            assertEquals(401, response.statusCode());
+        }
     }
-
 }
+
+
