@@ -7,11 +7,11 @@ public class MyFirstTest {
 
     @Test
     void myFirstTest() {
-        int result = sum(2, 2);
-        Assertions.assertEquals(4, result);
+        int result = sum(3, 3);
+        Assertions.assertEquals(9, result);
 
     }
 static int sum(int a, int b) {
-        return a + b;
+        return a * b;
     }
 }

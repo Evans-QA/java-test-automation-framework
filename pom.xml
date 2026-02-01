@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.framework</groupId>
-    <artifactId>java-test-automation-framework</artifactId>
+    <groupId>com.testautomation</groupId>
+    <artifactId>FirstFramework</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -15,21 +15,26 @@
     </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>5.11.0</version>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>6.1.0-M1</version>
             <scope>test</scope>
         </dependency>
-    </dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
+        </dependency>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.5.0</version>
-            </plugin>
-        </plugins>
-    </build>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.39.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+    </dependencies>
 </project>
