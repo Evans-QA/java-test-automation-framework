@@ -1,22 +1,20 @@
 package com.framework;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-
 import java.time.Duration;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MyFirstUITest {
 
-    WebDriver driver;
+   static WebDriver driver;
 
-    @BeforeEach
-    void setup() {
+    @BeforeAll
+    static void setup() {
         ChromeOptions options = new ChromeOptions().addArguments("--start-maximized");
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
@@ -26,7 +24,7 @@ public class MyFirstUITest {
     void userNicknameIsCorrect() {
         driver.get("https://github.com/Evans-QA");
         String actualUserName = driver.findElement(By.className("p-nickname")).getText();
-        Assertions.assertEquals("Evans-QA", actualUserName);
+        assertEquals("Evans-QA", actualUserName);
     }
 
     @Test
@@ -36,8 +34,8 @@ public class MyFirstUITest {
         // Add assertion here
     }
 
-    @AfterEach
-    void tearDown() {
+    @AfterAll
+    static void tearDown() {
         driver.quit(); // This keeps my computer clean!
     }
 }
