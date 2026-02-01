@@ -29,5 +29,22 @@ public class Java11GetHeaderTest {
         // Assert
         Assertions.assertEquals(200, actualCode);
     }
+    
+    @Test
+    void serverTypeOption () throws IOException, InterruptedException {
+        // Arrange
+        HttpClient httpClient = HttpClient.newBuilder().build();
+
+        HttpRequest get = HttpRequest.newBuilder(URI.create(BASE_URL))
+                .setHeader("User-Agent", "Java 11 Http bot")
+                .build();
+
+        // Act
+        HttpResponse<Void> response = httpClient.send(get, HttpResponse.BodyHandlers.discarding());
+        String serverType = response.headers().firstValue("Server").get();
+
+        // Assert
+        Assertions.assertEquals("github.com", serverType);
+    }
 
 }
