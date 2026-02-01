@@ -1,60 +1,41 @@
 package com.framework;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-
 import java.time.Duration;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MyFirstUITest {
 
-    @Test
-    void userNameIsCorrectOnOverviewTab() {
+   static WebDriver driver;
 
-
-        // Arrange
-        ChromeOptions options = new ChromeOptions().addArguments("start-fullscreen");
-
-        WebDriver driver = new ChromeDriver(options);
+    @BeforeAll
+    static void setup() {
+        ChromeOptions options = new ChromeOptions().addArguments("--start-maximized");
+        driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-
-
-        String user = "Evans-QA";
-        driver.get("https://github.com/" + user);
-
-        // Act
-        String actualUserName = driver.findElement(By.className("p-nickname")).getText();
-
-
-        // Assert
-        Assertions.assertEquals(user, actualUserName);
-
-        //driver.quit();
-
     }
 
-        @Test
-        void repoLinkGoesToCorrectRepo() {
+    @Test
+    void userNicknameIsCorrect() {
+        driver.get("https://github.com/Evans-QA");
+        String actualUserName = driver.findElement(By.className("p-nickname")).getText();
+        assertEquals("Evans-QA", actualUserName);
+    }
 
-            // Arrange
-            ChromeOptions options = new ChromeOptions().addArguments("start-maximized");
+    @Test
+    void repositoryLinkIsClickable() {
+        driver.get("https://github.com/Evans-QA");
+        driver.findElement(By.className("repo")).click();
+        // Add assertion here
+    }
 
-            WebDriver driver = new ChromeDriver(options);
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-
-
-            String user = "Evans-QA";
-            driver.get("https://github.com/" + user);
-
-            // Act
-            driver.findElement(By.className("repo")).click();
-
-
-            // Assert
-
-
-        }
-        }
+    @AfterAll
+    static void tearDown() {
+        driver.quit(); // This keeps my computer clean!
+    }
+}
